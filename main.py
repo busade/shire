@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin
+from flask_login import LoginManager, UserMixin, login_required, login_user
 from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
@@ -25,6 +25,9 @@ class Users(db.Model, UserMixin):
     
     def __repr__(self):
         return f"User: <{self.username}>"
+
+    def get_id(self):
+        return str(self.id)
 
 class Posts(db.Model):
     __tablename__ = "post"
@@ -51,7 +54,7 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    return Users.get(user_id)
+    return Users.query.get(user_id)
 
 
 @app.route('/')
@@ -61,9 +64,7 @@ def home():
 
 @app.route('/signup',methods=["POST","GET"])
 def signup():
-    print("one")
     if request.method == "POST":
-        print("two")
         username = request.form.get("username")
         email = request.form.get("email")
         password = request.form.get("password")
@@ -89,16 +90,35 @@ def login():
     if request.method == "POST":
         email_check= Users.query.filter_by(email=email).first()
         if email_check and check_password_hash(email_check.password,password):
+            login_user(email_check)
             return redirect (url_for('post'))
         else:
             return ("Invalid Email or password")
 
     return render_template('login.html')
 
-@app.route('/post')
+@app.route('/post', methods=["POST", "GET"])
+@login_required
 def post():
+    if request.method== "POST":
+        title= request.form.get("title")
+        content = request.form.get("content")
+        author = request.form.get("author")
+
+        title_check = Posts.query.filter_by(title = title).first()
+        if title_check:
+            return (f" A post with {title} already exists")
+        else:
+            new_post = Posts(title = title, content= content, author= author)
+            db.session.add(new_post)
+            db.session.commit()
     return render_template('post.html')
 
+@app.route('/blogs', methods =['GET', 'POST'])
+def blogs():
+    blogs = Posts.query.all()
+
+    return render_template("view.html", blogs)
 
 
 if __name__ == '__main__':
