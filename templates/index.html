@@ -1,22 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blogpost</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block body %}
     <header>
-        <h3>Welcome to this blog</h3>
-        <ul>
-            <li><a href="{{url_for ('home')}}">Home</a></li>
-            <li><a href="{{url_for ('signup')}}">Signup</a></li>
-            <li><a href="{{url_for ('login')}}">Login</a></li>
-            <li><a href="{{url_for ('post')}}">Posts</a></li>
-        </ul>
+        <h1>Welcome to this blog</h3>
+        
     </header>
-    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
-</body>
-</html>
+    {% for  blog in blogs %}
+        <h2>{{ blog.title }}</h2>
+        <h2>Created by:{{ blog.author }}</h3>
+        <p>{{ blog.content }}</p>
+        <p>Date Created{{ blog.created_on }}</p>
+    
+    {% endfor %}
+    
+    
+    
+{% endblock %}
