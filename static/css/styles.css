@@ -8,9 +8,14 @@ body {
     flex-direction: column;
     line-height: 1.5;
     margin:0;
-    min-height: 100vh;
+    
     padding: 0;
     text-align: left;
+  }
+
+  .content{
+    height: 30rem;
+    background-color: #FBFBFB;
   }
   
   .header {
@@ -84,15 +89,16 @@ body {
   }
   
   .navbar-nav a {
-    color: white;
+    /* color: white; */
     margin: 0 15px;
     text-decoration: none;
     font-size: 1.2em;
   }
   
-  .navbar-nav a:hover {
-    color: #f8f9fa;
-  }
+  /* .navbar-nav a:hover {
+    /* color: #f8f9fa; */
+  /* }  */
+  
   
   .alert {
     margin-top: 20px;
@@ -103,6 +109,7 @@ body {
   }
   
   footer {
+    
     margin-top: 20px;
     padding: 20px 0;
     background-color: #f8f9fa;

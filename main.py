@@ -4,6 +4,7 @@ from flask_login import LoginManager, UserMixin, login_required, login_user, cur
 from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
+from datetime import timedelta
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']="sqlite:///blog.db"
@@ -12,6 +13,11 @@ app.secret_key="ichascnchdcuncducbeduc"
 db = SQLAlchemy(app)
 
 migrate = Migrate(app,db)
+
+@app.before_request
+def make_session_short():
+    session.permanent = True
+    app.permanent_session_lifetime= datetime.timedelta(hours=24)
 
 
 class Users(db.Model, UserMixin):
@@ -165,9 +171,11 @@ def delete():
     psot_id = request.args.get("post_id")
     post_to_delete = Posts.query.filter_by(id=psot_id).first()
     if post_to_delete:
-        db.session.delete(post_to_delete)
-        db.session.commit()
-        return redirect(url_for('profile'))
-
+        try:
+            db.session.delete(post_to_delete)
+            db.session.commit()
+            return redirect(url_for('profile'))
+        except TypeError:
+            print ("An error occured!")
 if __name__ == '__main__':
     app.run(debug=True)

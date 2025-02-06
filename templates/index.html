@@ -1,16 +1,18 @@
 {% extends "base.html" %}
 {% block body %}
-    <header>
-        <h1>Welcome to this blog</h3>
+   <div class = "body">
+        <header>
+            <h1>Welcome to this blog</h3>
+            
+        </header>
+        {% for  blog in blogs %}
+            <h2>{{ blog.title }}</h2>
+            <h2>Created by:{{ blog.author }}</h3>
+            <p>{{ blog.content }}</p>
+            <p>Date Created{{ blog.created_on }}</p>
         
-    </header>
-    {% for  blog in blogs %}
-        <h2>{{ blog.title }}</h2>
-        <h2>Created by:{{ blog.author }}</h3>
-        <p>{{ blog.content }}</p>
-        <p>Date Created{{ blog.created_on }}</p>
-    
-    {% endfor %}
+        {% endfor %}
+    </div>
     
     
     
