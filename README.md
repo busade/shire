@@ -20,22 +20,24 @@ Before running the file ensure to have the following installed on your local com
 ----
 ## To get started
 1. Clone the repository
-```bash
+``` bash
 git clone "https://github.com/busade/shire.git"
 cd shire
 ```
 2. Create a virtual environment
-```bash
+``` bash
 python -m venv env
 ```
 3. Activate the environment
-```bash
+``` bash
 source env/scripts/activate
 ```
 or 
 ```cmd
 env\scripts\activate
 ```
+4. Install Dependencies
+``` bash
 
 
 
