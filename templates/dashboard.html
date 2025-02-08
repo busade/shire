@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block body %}
-<h2>{{user_info.username}}</h2>
-<p>{{user_info.gender}}</p>
+<h2 class="username">{{user_info.username}}</h2>
+<p class="gender">{{user_info.gender}}</p>
 <hr>
 {% for post in user_posts %}
-    <h3>{{post.title}}</h3>
+    <h3 >{{post.title}}</h3>
     <p>{{post.author}}</p>
     <blockquote>{{post.content}}</blockquote>
     <br>

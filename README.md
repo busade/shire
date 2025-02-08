@@ -38,6 +38,18 @@ env\scripts\activate
 ```
 4. Install Dependencies
 ``` bash
+pip install -r requirements.txt
+```
+5. Set the flask app
+``` bash 
+set FLASK_APP=main.py (cmd)
+export FLASK_APP=main.py (bash)
+```
+6. Run the application 
+``` bash
+flask run
+
+
 
 
 
